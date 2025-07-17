@@ -3,9 +3,9 @@ import '../styles.css';
 import AnimatedTitle from '../components/AnimatedTitle';
 
 const essays =[
-  "studying neural networks like brains",
-  "bump, set, spike: volleyball strategy",
-  ,"an intro to brain computer interfaces"
+  {title: "studying neural networks like brains", id: 'studying-neural-networks-like-brains'},
+  {title: "bump, set, spike: volleyball strategy", id: 'bump-set-spike-volleyball-strategy'},
+  ,{title: "an intro to brain computer interfaces", id: 'an-intro-to-brain-computer-interfaces'},
 ]
 const projects = [
   { name: 'wednesday waffle', url: 'https://github.com/yourname/project2', desc: 'a web app to keep up with friend groups via weekly posts, sharing media, and collective goal tracking' },
@@ -32,7 +32,7 @@ export default function Home() {
         <h2 className='subheading'>&gt;&gt;writing</h2>
         <div className="grid">
           {essays.map((e, i) => (
-            <Link to={`/essay/${e}-${i}`} key={i} className="card">{e}</Link>
+            <Link to={`/essay/${e.id}`} key={i} className="card">{e.title}</Link>
           ))}
         </div>
       </section>
