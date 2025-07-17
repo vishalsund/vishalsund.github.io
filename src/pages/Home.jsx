@@ -8,10 +8,10 @@ const essays =[
   ,{title: "an intro to brain computer interfaces", id: 'an-intro-to-brain-computer-interfaces'},
 ]
 const projects = [
-  { name: 'wednesday waffle', url: 'https://github.com/yourname/project2', desc: 'a web app to keep up with friend groups via weekly posts, sharing media, and collective goal tracking' },
-  { name: 'this website', url: 'https://github.com/vishalsund/rhythm-quest', desc: "a personal dev-website built using Vite + React, hosted on github pages. serves as a project compilation and blog" },
+  { name: 'wednesday waffle', url: 'https://github.com/vishalsund/Wednesday-Waffle', desc: 'a web app to keep up with friend groups via weekly posts, sharing media, and collective goal tracking' },
+  { name: 'this website', url: 'https://github.com/vishalsund/vishalsund.github.io', desc: "a personal dev-website built using Vite + React, hosted on github pages. serves as a project compilation and blog" },
   { name: 'rhythm quest', url: 'https://github.com/vishalsund/rhythm-quest', desc: "a 1-4 player web-based rhythm game made in unity. 100% custom made music & assets. explore the world through music with friends!" },
-  { name: 'sgai simulation', url: 'https://github.com/yourname/project4', desc: 'studying human-ai teaming and decision making in a serious game simulation. MIT beaver works summer institute project w/Dr. Robert Seater' },
+  { name: 'sgai simulation', url: 'https://web.mit.edu/webcast/beaverworks/sum24/2/game_design.html', desc: 'studying human-ai teaming and decision making in a serious game simulation. MIT beaver works summer institute project w/Dr. Robert Seater' },
 ];
 
 export default function Home() {

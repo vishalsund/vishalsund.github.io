@@ -16,9 +16,6 @@ export default function Essay() {
 
   return (
     <div>
-      <header className="header">
-        <h1 className='arialBold'>vishal_sundaram</h1>
-      </header>
       <div className='essay-container'>
         <main className="essay-content">
             <ReactMarkdown>{content}</ReactMarkdown>

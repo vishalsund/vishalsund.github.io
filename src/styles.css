@@ -123,16 +123,32 @@ h1, h2 {
 
 .essay-container {
   padding: 2rem;
+  padding-top: 0rem;
 }
 
 .essay-content {
-  max-width: 800px;
+  max-width: 600px;
+  font-size: 150%;
+  line-height: 1;
   margin: 4rem auto;
-  line-height: 1.6;
+  margin-top: 0;
+  color: #C5C0BF;
 }
 
 .essay-content img {
   max-width: 100%;
   margin-top: 2rem;
   border: 2px solid white;
+}
+
+.essay-content h1 {
+  margin-bottom: 1rem;
+  font-family:   'Georgia', 'Times New Roman', Times, serif;
+  -webkit-text-stroke: 0.35px;
+  color: #E2DFDF;
+}
+
+.essay-content h2 {
+  -webkit-text-stroke: 0.35px;
+  color: #E2DFDF;
 }

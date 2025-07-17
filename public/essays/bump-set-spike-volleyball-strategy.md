@@ -1,7 +1,7 @@
-# Volleyball Ruleset 🏐
+# bump, set, spike: volleyball strategy
 *Published 07.17.2025*
 
-![Volleyball](https://upload.wikimedia.org/wikipedia/commons/6/66/Volleyball_icon.svg)
+![Volleyball](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Brasil_vence_a_Fran%C3%A7a_no_v%C3%B4lei_masculino_1037987-15.08.2016_ffz-6369.jpg/1920px-Brasil_vence_a_Fran%C3%A7a_no_v%C3%B4lei_masculino_1037987-15.08.2016_ffz-6369.jpg)
 
 ## Overview
 
@@ -37,11 +37,11 @@ Volleyball is a team sport where two teams of six players are separated by a net
 
 ## Court Dimensions
 
-| Area              | Measurement       |
-|-------------------|------------------|
-| Total court size  | 18m x 9m          |
-| Net height (men)  | 2.43m             |
-| Net height (women)| 2.24m             |
+| Area              | Measurement       |  
+|-------------------|------------------|  
+| Total court size  | 18m x 9m          |  
+| Net height (men)  | 2.43m             |  
+| Net height (women)| 2.24m             |  
 | Attack line       | 3m from net       |
 
 ![Volleyball Court](https://upload.wikimedia.org/wikipedia/commons/f/fd/Volleyball_court_diagram.svg)
