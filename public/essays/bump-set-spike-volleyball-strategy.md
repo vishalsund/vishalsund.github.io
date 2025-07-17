@@ -1,5 +1,5 @@
 # bump, set, spike: volleyball strategy
-*Published 07.17.2025*
+*Published 06.24.2025*
 
 Volleyball is usually associated with crazy verticals, tall blocks and powerful spikes; a sport incredibly inacessible to short people. As an **average height** male myself, I never took a huge liking to volleyball until recently at ut orientation, when I discovered that I have an uncanny ability to keep the volleyball off the ground.
 

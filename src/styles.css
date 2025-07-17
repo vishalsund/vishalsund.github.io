@@ -129,10 +129,10 @@ h1, h2 {
 .essay-content {
   max-width: 600px;
   font-size: 150%;
-  line-height: 1;
+  line-height: 1.5;
   margin: 4rem auto;
   margin-top: 0;
-  color: #C5C0BF;
+  color: #d6d1d0;
 }
 
 .essay-content img {
@@ -150,5 +150,14 @@ h1, h2 {
 
 .essay-content h2 {
   -webkit-text-stroke: 0.35px;
+  color: #E2DFDF;
+}
+
+.essay-content h3 {
+  -webkit-text-stroke: 0.35px;
+  color: #E2DFDF;
+}
+
+.essay-content strong{
   color: #E2DFDF;
 }
