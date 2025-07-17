@@ -1,0 +1,138 @@
+body {
+  margin: 0;
+  font-family: monospace;
+  background-color: #7a6f6b;
+  color: white;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid white;
+}
+
+.arialBold {
+  font-family: "Arial Black", monospace;
+  font-size:2.75rem;
+  font-weight: 900;
+  color: #CDC9C8;
+}
+
+underscore {
+  font-family: 'Cascadia Code', 'Fira Code', 'Courier New', Courier, monospace;
+}
+
+.container {
+  padding: 2rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background: #3a3230;
+  padding-left: 2rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  line-height: 1.5rem;
+}
+.subheading{
+    font-size: 2rem;
+    color: #3A3230;
+    font-family: 'Cascadia Code', 'Fira Code', 'Courier New', Courier, monospace;
+}
+
+.bodyText {
+  font-size: 1.2rem;
+  line-height: 1;
+  font-family: 'Consolas', 'Times New Roman', Times, serif;
+  -webkit-text-stroke: 0.35px
+}
+
+h1, h2 {
+  font-weight: bold;
+}
+
+.about {
+  margin-left: 1rem;
+  padding-top: .25rem;
+  color: #E2DFDF;
+}
+
+.about-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  margin-left: 2rem;
+}
+
+.grid {
+  display: grid;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.card {
+  padding: 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 1px solid #3a3230;
+  color: #3a3230;
+  font-family: 'Consolas', 'Times New Roman', Times, serif;
+  text-align: left;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+  background-color: #3a3230;
+  color: #E2DFDF;
+  border-color: #E2DFDF;
+}
+
+.card strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.footer {
+  text-align: center;
+  padding-top:1rem;
+  padding-bottom: .5rem;;
+  color: #C5C0BF;
+  font-size: 1rem;
+  line-height: 1;
+  font-family: 'Consolas', 'Times New Roman', Times, serif;
+  -webkit-text-stroke: 0.35px;
+}
+
+.footer a {
+  color: #C5C0BF;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color:white
+}
+
+.essay-container {
+  padding: 2rem;
+}
+
+.essay-content {
+  max-width: 800px;
+  margin: 4rem auto;
+  line-height: 1.6;
+}
+
+.essay-content img {
+  max-width: 100%;
+  margin-top: 2rem;
+  border: 2px solid white;
+}
