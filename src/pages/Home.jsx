@@ -24,7 +24,7 @@ export default function Home() {
       <section>
         <h2 className='subheading'>&gt;&gt;about_me</h2>
         <div class = "about-container">
-          <img src="profile.png" alt="Profile" className="profile-pic" />
+          <img src="./img/profile.png" alt="Profile" className="profile-pic" />
           <p className="about bodyText">Turing Scholar [CS Honors] @ UT Austin interested in ml🤖, math📈, neurotech🧠, and volleyball🏐<br></br><br></br>Contact me at vishals [at] utexas [dot] edu</p>
         </div>
       </section>

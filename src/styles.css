@@ -132,7 +132,7 @@ h1, h2 {
   line-height: 1.5;
   margin: 4rem auto;
   margin-top: 0;
-  color: #d6d1d0;
+  color: #ebe6e6;
 }
 
 .essay-content img {
@@ -146,11 +146,12 @@ h1, h2 {
   font-family:   'Georgia', 'Times New Roman', Times, serif;
   -webkit-text-stroke: 0.35px;
   color: #E2DFDF;
+  text-shadow:-5px 0px 0.5px #3A3230 ;
 }
 
 .essay-content h2 {
   -webkit-text-stroke: 0.35px;
-  color: #E2DFDF;
+  color: #ede9e9;
 }
 
 .essay-content h3 {

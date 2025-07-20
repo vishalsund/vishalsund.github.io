@@ -86,7 +86,7 @@ Defensive strategy is coordinated by the Liberos and involves moving your block 
 
 When the other team's outside hitter is hitting the ball, they have 3 directions to hit in
 
-![Volleyball hitting Directions](../img/volleyball-01.png)
+![Volleyball hitting Directions](../img/volleyball-strategy/volleyball-01.png)
 
 A double block can move to cover roughly one of these 3 hitting directions, and which one to choose really comes down to the strengths of the team's backrow. The setter will always be in position 1, meaning that when the other team's outside hits, the setter will always be in the line region
 
