@@ -5,7 +5,7 @@ import AnimatedTitle from '../components/AnimatedTitle';
 const essays =[
   {title: "implementing common spatial pattern", id: 'implementing-csp'},
   {title: "bump, set, spike: volleyball strategy", id: 'bump-set-spike-volleyball-strategy'},
-  ,{title: "an intro to brain computer interfaces", id: 'an-intro-to-brain-computer-interfaces'},
+  {title: "an intro to brain computer interfaces", id: 'an-intro-to-brain-computer-interfaces'},
 ]
 const projects = [
   { name: 'wednesday waffle', url: 'https://github.com/vishalsund/Wednesday-Waffle', desc: 'a web app to keep up with friend groups via weekly posts, sharing media, and collective goal tracking' },
