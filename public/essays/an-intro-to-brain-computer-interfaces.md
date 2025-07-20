@@ -8,7 +8,8 @@ Technology and my understanding of doctors have come a far way since then, but s
 
 Brain-Computer interfaces or bci's are what enable this kind of technological breakthrough. This article explains them quite well.
 
-[Image of BCI]
+![Image of BCI](../img/an-intro-to-bci/bci-image.jpg)
+*Credit: CNBI Lab, The University of Texas at Austin*
 
 BCI's are the technology that convert brain signals into actions on a computer or machine, but Electroencephalograms [ EEGs ] are the machines that give us these readable brain signals. Simply put, an EEG is a collection of metal electrodes that are put on a person's scalp in a specific arrangement [most commonly, the 10-20 system], by reading the differences in potential between these electrodes [and a ground], we get a varying electrical signal from each electrode.
 
