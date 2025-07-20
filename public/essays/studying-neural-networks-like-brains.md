@@ -1,1 +1,0 @@
-# studying neural networks like brains

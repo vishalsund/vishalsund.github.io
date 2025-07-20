@@ -3,7 +3,7 @@ import '../styles.css';
 import AnimatedTitle from '../components/AnimatedTitle';
 
 const essays =[
-  {title: "studying neural networks like brains", id: 'studying-neural-networks-like-brains'},
+  {title: "implementing common spatial pattern", id: 'implementing-csp'},
   {title: "bump, set, spike: volleyball strategy", id: 'bump-set-spike-volleyball-strategy'},
   ,{title: "an intro to brain computer interfaces", id: 'an-intro-to-brain-computer-interfaces'},
 ]
