@@ -1,12 +1,15 @@
 # an intro to brain computer interfaces
 
+*Published 07.15.2025*
+
+
 One summer break in 5th grade, I vividly remember being terrified to go to the doctor; not only for the taste of medicine, but because I was worried the doctor would listen to my heartbeat and find out that I liked a girl from my school.
 
-Technology and my understanding of doctors have come a far way since then, but still mind-reading feels more of a sci-fi enthusiast pipe dream rather than a developing technology on the horizon. But seeing companies like Neuralink, Blackrock Neurotech, Starfish Neuroscience, and OTHER COMPANY create products that allow people to use their minds to control prosthetic limbs; research done at CNBI and Hamilton Lab on THIS and THAT, shows that maybe this pipe-dream isn't so far away.
+Technology and my understanding of doctors have come a far way since then, but still mind-reading feels more of a sci-fi enthusiast pipe dream rather than a developing technology on the horizon. But seeing research labs and companies enable people with neurodegenerative diseases or paralysis to control prosthetics, and even play videogames with their mind, makes this pipe-dream seem not too far away.
 
 ## brain computer interfaces
 
-Brain-Computer interfaces or bci's are what enable this kind of technological breakthrough. This article explains them quite well.
+Brain-Computer interfaces or bci's are what enable this kind of technological breakthrough.
 
 ![Image of BCI](../img/an-intro-to-bci/bci-image.jpg)
 *Credit: CNBI Lab, The University of Texas at Austin*
@@ -33,15 +36,15 @@ A rather disturbing image, this model shows us that left vs right hand movement 
 
 ## the data
 
-The data I used for this project came from the BCI Competition IV 2a dataset.
+The data I used for this project came from the [BCI Competition IV 1 dataset](https://www.bbci.de/competition/iv/desc_1.html).
 
 I encourage everyone to read the problem statement for this problem; it proposes a challenge of classifying motor imagery **without time cues**. However, since I am just introducing myself to bci's, I chose to save this problem for after this project [ I have some notes ideas about this problem in the conclusion section of this article ]
 
-The data is provided in a matlab file (.mat), and I did this analysis using python [ though i **really** should switch to matlab, a shift I am making right after writing this hopefully ]. The source code for this analysis is included below if you would like to follow along:
-
-*soure code:* [ Link ]
+The data is provided in a matlab file (.mat), and I did this analysis using python [ though i **really** should switch to matlab, a shift I am making right after writing this hopefully ]
 
 The data was provided as an array of samples of each of 59 EEG electrodes/channels, sampled at 100Hz over a period of time. During this time, the subject was given cues to move their left or right hand, the time of each cue and its classification has been provided in the data.
+
+For the BCI framework, I chose a system [ that I thoroguhly explain throughout this article ] based on examples from online, best practices, and algorithms I have used in other ml projects. The code for the CSP function come from the Python EEG toolbox: [Boris Reuderink's EEG Tools](https://github.com/breuderink/eegtools)
 
 Since we are performing **cued motor imagery classification**, we only care about the time immediately after the cue is provided. I chose a trial length of 2 seconds, starting 0.5 seconds after cue onset. The data collected has several test subjects [ and some artificially generated datasets ], I only used one test subject in my analysis.
 
@@ -96,42 +99,79 @@ The Common Spatial Pattern [ CSP ] algorithm is a widely praised algorithm that 
 
 *note:* CSP is a very interesting algorithm that I plan to implement from the ground-up in the near future, but the specifics are beyond the scope of this project.
 
-The code for the CSP algorithm that I used here came from [ HERE ]. The CSP algorithm provides a mixing matrix of size channels * channels. Once this mixing matrix is applied, the channels are in increasing order of varaince [ note here that since channels can have negative variance, when we compute the log-variance, we will get all positive numbers, meaning that the log-variances will go from high, to low, to high ]. Below is the log-variance plot for the alpha band after applying CSP.
+The code for the CSP algorithm that I used here came from the Python EEG tools mentioned in the data section. The CSP algorithm provides a mixing matrix of size channels * channels. Once this mixing matrix is applied, the channels are in increasing order of varaince [ note here that since channels can have negative variance, when we compute the log-variance, we will get all positive numbers, meaning that the log-variances will go from high, to low, to high ]. Below is the log-variance plot for the alpha band after applying CSP.
 
 ![Log-variance after applying CSP](../img/an-intro-to-bci/csp-logvar.png)
 
 As we can see, the first and final elements have an *incredibly* large variance between the 2 classes. This is really incredible, CSP has provided us a set of new channels, made as combinations of our standard 59 channels, and in these new channels, we have some that are incredibly discriminant of the left vs right hand motor imagery.
 
+Below are the PSD plots of the first, middle, and last features from the CSP matrix, we can see here that not only is there a significant difference in the classes, there are features in the data that are activated *more* for left and right hand movements.
+
 ![PSD of the first, middle, and last feature of the CSP matrix](../img/an-intro-to-bci/csp-psd.png)
 
 Again, we should emphasize how **interpretable** these results are. Each CSP feature is vector of all of the standard 59 channels, if we only take the first and last CSP features, we have effectively found regions of scalp that have maximal discriminability. To visualize this, the topographic mappings of the first and last CSP features are below:
 
-[ Topographic mappings ]
+![First Component](../img/an-intro-to-bci/csp-1.png)
+
+![Last Component](../img/an-intro-to-bci/csp-59.png)
+
+*note: when I was generating these images, I thought something had gone horribly wrong, since these areas of the brain didn't line up with where the motor cortex was. I sifted through some of the lower variance features, and eventually found some that looked roughly in the area of the motor cortex, but by repeating this analysis across all of the subjects in the dataset, I found **these exact locations** as the first and last component every time. This probably means that there is a connection between these locations and motor imagery.*
 
 We can see here, that the locations that these 2 features locate on the brain are presumably near the parts of the motor cortex that control arm movement. This means, we could reduce our 59 channels to just these 2 new channels if we needed to.
 
 ## classification
 
-Since this task has turned out to have 2 features with very high discriminability of the classification problem, we can use "*Linear Discriminant Analysis*" to determine the hyperplane that best divides this data. However in 2 Dimensions, a hyperplane is just a line, so this becomes a very simple linear classifier.
+Since this task has turned out to have 2 features with very high discriminability of the classification problem, we can use "*Linear Discriminant Analysis*" to determine the hyperplane that best divides this data. However in 2 Dimensions, a hyperplane is just a line, so this becomes a very simple linear classifier, a fairly simple LDA model is used to determine the weight and bias.
+
+LDA is a common method used in BCI. It scales as so: CSP will always provide the most discriminant features in the channels, we can then choose a certain number of feature we would like to train our LDA model on, obviously the usual machine learning problems such as overfitting apply here too.
 
 For the linear classifier, I used an 80:20 split of training and testing data. The scatterplot below shows the classifier with the training points.
 
-[ scatterplot training ]
+![Training Scatterplot](../img/an-intro-to-bci/train-scatterplot.png)
 
-The testing data also did quite well, the scatterplot with testing data and the confusion matrix are displayed below
+The scatterplot with testing data and the confusion matrix are displayed below:
 
-[ testing scatterplot ]
+![Testing Scatterplot](../img/an-intro-to-bci/test-scatterplot.png)
 
-[ confusion matrix ]
+![Confusion Matrix](../img/an-intro-to-bci/confusion%20matrix.png)
 
-**Accuracy: 91%**
-
-**Sensitivity:**
-
-**Specificity:**
+**Accuracy: 92.5%**
 
 ## conclusions
 
+Classification of intention from EEG data is a crucial task to implement faster, more efficient, and more accurate Brain Computer Interfaces. Future exploration topics that I am interested in include:
+
+1. implementing CSP (working on this next)
+
+2. uncued classification
+
+3. personalized models, calibration challenges/efficiency
+
+4. training subjects to provide more consistent signals
+
 ### a note on interpretability
 
+The most exciting part of this project for me was the interpretability of its results, once I saw the CSP matrix, I thought of what this finding meant in this context. I was easy to see that it represented a brain region, and by using some visualization, I found brain regions that have a strong impact on motor imagery, that I wouldn't ever have known about before.
+
+Simply put, any result is only as useful as it is interpretable, this goes for all of machine learning [ and pretty much everything else ]. I am sure there are more complex algorithms used in BCI research, and if we use modern ml techniques on BCI, we could esily find ourselves in situations similar to financial models, we would have *block boxes* as algorithms, unable to interpret their meaning. This is an issue across the board in ML and I believe that algorithmic interpretability is the most important aspect of most algorithms. So I will look at future research that I can do on interpretability in this space
+
 ### uncued classification
+
+Some closing thoughts about the uncued classification problem:
+
+- Train a model that can detect the cue by training on the first 0.5 seconds of signal onset
+
+- Compare the values during motor imagery and rest for the most discriminant features
+
+
+*References*
+
+BCI Competition IV. (n.d.). Data set 1: Description. BBCI. https://www.bbci.de/competition/iv/desc_1.html
+
+CNBI Lab. (n.d.). Brain-Computer Interface System Diagram [Photograph]. The University of Texas at Austin.
+
+Nicolas-Alonso LF, Gomez-Gil J. Brain computer interfaces, a review. Sensors (Basel). 2012;12(2):1211-79. doi: 10.3390/s120201211. Epub 2012 Jan 31. PMID: 22438708; PMCID: PMC3304110
+
+Penfield, W., & Rasmussen, T. (1950). The cerebral cortex of man: A clinical study of localization of function. Macmillan.
+
+Reuderink, B. (n.d.). eegtools: Python toolbox for EEG signal processing [GitHub repository]. https://github.com/breuderink/eegtools
