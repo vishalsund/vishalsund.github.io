@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 
 export default function PhotoCarousel() {
   const images = [
-    "content\photography\DSCN1962.JPG",
-    "content\photography\DSCN1962.JPG",
+    "public\images\photography\DSCN1962.JPG",
+    "public\images\photography\DSCN1979.JPG",
+    "public\images\photography\DSCN1978.JPG",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

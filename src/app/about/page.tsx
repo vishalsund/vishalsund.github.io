@@ -10,7 +10,6 @@ export default function About() {
           <p className="text-xl text-dark-200 leading-relaxed max-w-2xl">
             Hi, I'm Vishal, a Turing Scholar studying CS + Math at UT Austin. I'm interested in machine learning
           </p>
-          <PhotoCarousel/>
           <h3>
             Current Work:
           </h3>
