@@ -1,0 +1,219 @@
+---
+title: "mini torch"
+date: 11-07-2025
+description: 'A bare bones deep learning framework built in c++'
+---
+
+I've always been fascinated by PyTorch. But how does `.backward()` *actually* work? To find out, I built **mini_torch**: a minimalist deep learning framework, inspired by PyTorch, written entirely in modern C++.
+
+## 🧠 The "Why": De-Mystifying the Magic
+
+[PyTorch](https://pytorch.org) is incredible. It's Pythonic, flexible, and powerful. But for many of us, its core—the **autograd engine**—is a "black box." You call `.backward()`, and gradients magically appear.
+
+That magic, however, isn't Python. It's a highly optimized C++ (and CUDA) backend. I built `mini_torch` not to *replace* PyTorch, but to understand it from the ground up. If you've ever wondered how dynamic computation graphs are built or how the chain rule is applied automatically, this journey is for you.
+
+`mini_torch` is a small-scale reimplementation of two fundamental components:
+1. A **Tensor** class that can store data and track gradients.
+2. An **Autograd Engine** that builds a graph of operations and computes gradients via backpropagation.
+
+---
+
+## 🧩 The Core Idea: Tensors and Computation Graphs
+
+At the heart of `mini_torch` is the **Tensor**. In C++, this can be surprisingly simple to start:
+
+```cpp
+// A simplified view of the Tensor's heart
+class Tensor {
+public:
+    std::vector<double> data;
+    std::vector<double> grad;
+    std::vector<int64_t> shape;
+    bool requires_grad = false;
+
+    // The "magic" link to the computation graph
+    std::shared_ptr<Node> node; 
+    
+    // ... constructors, methods, etc.
+};
+```
+
+The real "trick" isn't the data (just a `std::vector`); it's the `std::shared_ptr<Node> node`. This pointer links a Tensor to the operation that created it, forming a Directed Acyclic Graph (DAG).
+
+### How the Graph is Built (Forward Pass)
+
+When you perform operations, you don't just compute values — you build a graph:
+
+```cpp
+Tensor a({2, 2}, 1.0); // requires_grad = true
+Tensor b({2, 2}, 2.0); // requires_grad = true
+
+Tensor c = a * b;
+Tensor d = c + b;
+```
+
+This simple code creates a graph that looks like this:
+
+```
+  a ---*
+       |--> (MulNode) --> c ---*
+  b ---* |--> (AddNode) --> d
+       |----------------------*
+```
+
+* `c` is a new Tensor whose node points to `MulNode`.
+* `MulNode` holds pointers back to its parents, `a` and `b`.
+* `d` is a new Tensor whose node points to `AddNode`.
+* `AddNode` holds pointers back to its parents, `c` and `b`.
+
+### How the Graph is Unwound (Backward Pass)
+
+This is the **autograd** part! When you call `d.backward()`, we perform two steps:
+
+1. **Topological Sort**: Traverse the graph from `d` backward, visiting each node only after all its children. This gives a stack of operations in the correct order to apply the chain rule: `[AddNode, MulNode]`.
+2. **Gradient Accumulation**: Pop from the stack and propagate gradients.
+
+Example:
+
+* Start with `d`. The gradient of `d` with respect to itself is 1 (`d.grad = 1.0`).
+* Pop `AddNode`: it gets `d`'s gradient (1.0). The derivative of addition (`d = c + b`) is 1 for both inputs.
+
+  * Pass `1.0 * 1.0` to `c` → `c.grad += 1.0`
+  * Pass `1.0 * 1.0` to `b` → `b.grad += 1.0`
+* Pop `MulNode`: it gets `c`'s gradient (1.0). The derivative of multiplication (`c = a * b`) is `b` for `a` and `a` for `b`.
+
+  * Pass `c.grad * b.data` to `a` → `a.grad += 1.0 * 2.0 = 2.0`
+  * Pass `c.grad * a.data` to `b` → `b.grad += 1.0 * 1.0 = 1.0`
+
+After `d.backward()` finishes:
+
+* `a.grad = 2.0`
+* `b.grad = 2.0`
+
+The key insight: `b` receives gradients from **two paths** (via `MulNode` and `AddNode`). The autograd engine handles this accumulation automatically.
+
+---
+
+## 💻 C++ Implementation Highlights
+
+### 1. Clean API with Operator Overloading
+
+To get PyTorch-like syntax `c = a * b`, we overload operators. These operators don't just compute values—they create graph nodes.
+
+```cpp
+// Overloading the '*' operator
+Tensor operator*(const Tensor& lhs, const Tensor& rhs) {
+    // 1. Compute the forward pass
+    Tensor result = /* ... compute lhs.data * rhs.data ... */;
+    
+    // 2. Create the graph node if tracking grads
+    if (lhs.requires_grad || rhs.requires_grad) {
+        result.requires_grad = true;
+        
+        // Create a 'backward' function (lambda)
+        auto backward_fn = [lhs, rhs](const std::vector<double>& grad_output) {
+            if (lhs.requires_grad) {
+                // lhs.grad += grad_output * rhs.data
+            }
+            if (rhs.requires_grad) {
+                // rhs.grad += grad_output * lhs.data
+            }
+        };
+        
+        // 3. Link the result tensor to the new node
+        result.node = std::make_shared<Node>(/* parents */ std::vector{lhs, rhs}, backward_fn);
+    }
+    return result;
+}
+```
+
+Using C++ lambdas to store the backward function for each operation is elegant and powerful.
+
+### 2. Memory Management with `std::shared_ptr`
+
+The computation graph is dynamic. A tensor `c` created inside a function might go out of scope, but the graph still needs it for the backward pass.
+
+**Problem:** If `a` and `b` are destroyed, how does `c`'s backward pass still access their data?
+**Solution:** `std::shared_ptr` — it keeps objects alive as long as they're referenced.
+
+---
+
+## 📈 Putting It All Together: A Training Loop!
+
+Can it actually learn anything? Yes! Here's a simple linear regression (`y = w * x + b`) written with mini_torch:
+
+```cpp
+// 1. Initialize parameters
+Tensor w({1}, 0.5); w.requires_grad = true;
+Tensor b({1}, 0.1); b.requires_grad = true;
+
+// 2. Define inputs (x) and targets (y_true)
+Tensor x({1}, 2.0);
+Tensor y_true({1}, 5.0);
+
+double learning_rate = 0.01;
+
+// 3. Run a training loop
+for (int i = 0; i < 10; ++i) {
+    // --- Forward Pass ---
+    Tensor y_pred = w * x + b;
+    Tensor diff = y_pred - y_true;
+    Tensor loss = diff.pow(2.0);
+
+    // --- Backward Pass ---
+    w.zero_grad();
+    b.zero_grad();
+    loss.backward();
+
+    // --- Gradient Descent ---
+    w.data[0] -= learning_rate * w.grad[0];
+    b.data[0] -= learning_rate * b.grad[0];
+    
+    std::cout << "Loss: " << loss.data[0] << std::endl;
+}
+```
+
+---
+
+## 📦 Repository Structure
+
+```
+mini_torch/
+│
+├── include/
+│   ├── Tensor.hpp       // The main Tensor class
+│   ├── internal/
+│   │   ├── Node.hpp     // Node/Graph definitions
+│   │   └── Ops.hpp      // Operator functions
+│
+├── src/
+│   ├── Tensor.cpp
+│   ├── internal/
+│   │   ├── Node.cpp
+│   │   └── Ops.cpp
+│
+├── examples/
+│   └── main.cpp         // Example usage (like the training loop)
+│
+├── CMakeLists.txt
+└── README.md
+```
+
+---
+
+## 🔍 Conclusion
+
+Building `mini_torch` taught me more about the internals of deep learning frameworks than any course could. You're forced to confront the details: memory management, graph data structures, and the elegance of the chain rule.
+
+If you’re learning deep learning, I can't recommend an exercise like this enough. It turns the "magic" of autograd into a concrete, understandable algorithm.
+
+---
+
+## 🚀 Future Work
+
+* Broadcasting for more complex tensor shapes
+* GPU Acceleration with CUDA or SYCL
+* More Layers: Conv2d, ReLU, CrossEntropyLoss
+* An Optimizer: e.g., `optim.SGD`
+
+Want to try it or see the full source? Check out the repository, compile with CMake, and run the examples!
