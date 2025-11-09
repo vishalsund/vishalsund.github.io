@@ -62,7 +62,7 @@ export default function Home() {
                 className="p-4 rounded-lg bg-dark-900 hover:bg-dark-800 transition-colors"
               >
                 <h3 className="font-medium text-dark-50">{project.title}</h3>
-                <p className="text-dark-300 text-sm mt-2">{project.description}</p>
+                <p className="text-dark-300 text-sm mt-2">{project.shortdesc}</p>
               </div>
             ))}
           </div>
