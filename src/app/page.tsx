@@ -23,9 +23,9 @@ export default function Home() {
             >
               Turing Scholar
             </a>{" "}
-            and undergraduate Computer Science & Mathematics major at UT Austin. 
-            My interests lie at the intersection of machine learning, systems, and mathematical modeling. 
-            Outside of academics, I enjoy volleyball and exploring how technology shapes human problem-solving. You can contact me at{" "}
+            and an undergraduate Computer Science & Mathematics double major at UT Austin interested in machine learning and mathematics. 
+            Outside of academics, I'm an amateur volleyball libero, a keen photographer, and a guitar player.
+            <br></br>You can contact me at{" "}
             <a
               href="mailto:vishals@utexas.edu"
               className="text-blue-400 hover:underline"

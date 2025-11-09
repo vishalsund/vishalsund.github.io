@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/lib/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
+// Import the new Footer component (assuming you create it in components/footer.tsx)
+import { Footer } from '@/components/footer' 
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,6 +33,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} min-h-screen bg-custom-light-bg-primary dark:bg-custom-dark-bg-primary text-custom-light-text-primary dark:text-custom-dark-text-primary transition-all duration-200`}>
         <ThemeProvider>
+          {/* ... Your existing Nav code ... */}
           <nav className="fixed top-0 left-0 right-0 z-50 border-b border-custom-light-border-primary dark:border-custom-dark-border-primary backdrop-blur-md bg-custom-light-bg-primary/80 dark:bg-custom-dark-bg-primary/80 supports-[backdrop-filter]:bg-custom-light-bg-primary/50 dark:supports-[backdrop-filter]:bg-custom-dark-bg-primary/50 transition-all duration-200">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16">
@@ -48,10 +51,15 @@ export default function RootLayout({
               </div>
             </div>
           </nav>
-          <div className="pt-16"> {/* Add padding to account for fixed navbar */}
-            <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          
+          <div className="pt-16 flex flex-col min-h-[calc(100vh-64px)]"> {/* ADD 'flex flex-col min-h-[calc(100vh-64px)]' for sticky footer */}
+            <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow"> {/* ADD 'flex-grow' */}
               {children}
             </main>
+            
+            {/* ⬅️ FOOTER COMPONENT ADDED HERE */}
+            <Footer />
+
           </div>
         </ThemeProvider>
       </body>
