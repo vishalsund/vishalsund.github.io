@@ -26,12 +26,7 @@ export default function Home() {
             and an undergraduate Computer Science & Mathematics double major at UT Austin interested in machine learning and mathematics. 
             Outside of academics, I'm an amateur volleyball libero, a keen photographer, and a guitar player.
             <br></br>You can contact me at{" "}
-            <a
-              href="mailto:vishals@utexas.edu"
-              className="text-blue-400 hover:underline"
-            >
-              vishals@utexas.edu
-            </a>
+              vishals [at] utexas [dot] edu
           </p>
           <div className="flex gap-4">
             <a
