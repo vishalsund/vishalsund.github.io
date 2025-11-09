@@ -40,9 +40,9 @@ export function getAllPosts(): BlogPost[] {
   // Sort posts by date
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
-      return -1 // A's date is older, so move it after B
+      return 1 // A's date is older, so move it after B
     } else {
-      return 1 // A's date is newer, so move it before B
+      return -1 // A's date is newer, so move it before B
     }
   })
 }

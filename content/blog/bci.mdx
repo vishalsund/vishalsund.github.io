@@ -1,7 +1,7 @@
 ---
 title: "an intro to brain computer interfaces"
 date: "10-5-2025"
-description: 'Creating a simple deep learning framework in C++'
+description: 'Detecting imagined hand movement from EEG data'
 ---
 
 One summer break in 5th grade, I vividly remember being terrified to go to the doctor; not only for the taste of medicine, but because I was worried the doctor would listen to my heartbeat and find out that I liked a girl from my school.
@@ -12,7 +12,7 @@ Technology and my understanding of doctors have come a far way since then, but s
 
 Brain-Computer interfaces or bci's are what enable this kind of technological breakthrough.
 
-![](img/an-intro-to-bci/bci-image.jpg)
+![](/img/bci/bci-image.jpg)
 *Credit: CNBI Lab, The University of Texas at Austin*
 
 BCI's are the technology that convert brain signals into actions on a computer or machine, but Electroencephalograms [ EEGs ] are the machines that give us these readable brain signals. Simply put, an EEG is a collection of metal electrodes that are put on a person's scalp in a specific arrangement [most commonly, the 10-20 system], by reading the differences in potential between these electrodes [and a ground], we get a varying electrical signal from each electrode.
@@ -23,13 +23,13 @@ While EEGs have been around nearly a century, I was interested in how actions in
 
 Luckily, neuroscience has given us a good understanding of where in the brain these *imaginary movements* occur. The motor cortex, is a part of the cerebral cortex that control voluntary actions in the brain.
 
-![Brain diagram of the Motor Cortex](../img/an-intro-to-bci/motor-cortex.jpg)
+![Brain diagram of the Motor Cortex](/img/bci/motor-cortex.jpg)
 
 In the 10-20 system, the electrodes **C3, Cz and C4** are positioned near the motor cortex, and *should* tell us the most about the imaginary movement that the subject is performing.
 
 Furthemore, medical knowledge shows that within the motor cortex, there are different parts [ the specifics here aren't terribly important, and they are way above me ] that correspond to controlling various parts of our body. This has been mapped by Wilder Penfield and his co-investigators and compiled into the **Cortical homunculus**
 
-![Cortical homunculus](../img/an-intro-to-bci/cortical-homunculus.jpg)
+![Cortical homunculus](/img/bci/cortical-homunculus.jpg)
 
 A rather disturbing image, this model shows us that left vs right hand movement are on opposite sides of the motor cortex, which should make them easier to differentiate, especially since electrodes C3 and C4 are positioned on opposite sides of the head in this area.
 
@@ -53,11 +53,11 @@ Since we are performing **cued motor imagery classification**, we only care abou
 
 Currently, if we plotted our EEG data, it would look something like this:
 
-![Raw EEG signal](../img/an-intro-to-bci/raw-eeg.png)
+![Raw EEG signal](/img/bci/raw-eeg.png)
 
 This, clearly is too abstract for any model to easily fit. Since it is a fluctuating continuous output of a single variable over time, we would want to perform something like a Fast Fourier Transform to get the independent sine-wave frequencies that make-up this signal. An extended version of this approach - Power Spectral Density (PSD) - is used in this BCI method.
 
-![PSD formula](../img/an-intro-to-bci/psd-formula.png)
+![PSD formula](/img/bci/psd-formula.png)
 
 PSD takes the square of the truncated Fourier transform of the signal and divides by time, this yields a value in units of **Watts/Hz**, which is Power (in the physics sense) distributed over frequencies: Hence Power Spectral Density.
 
@@ -65,7 +65,7 @@ PSD takes the square of the truncated Fourier transform of the signal and divide
 
 In our context, "*power*" is analagous to neural activity [ or technically any electric activity ], giving us the density of neural activity at different frequencies from every channel. Below are the PSDs for the C3 Cz and C4 channels.
 
-![Power Spectral Density of the EEG Data](../img/an-intro-to-bci/full-band-psd.png)
+![Power Spectral Density of the EEG Data](../img/bci/full-band-psd.png)
 
 ## Bandpass Filtering
 
@@ -79,9 +79,9 @@ The brain has various neural oscillations, better known as brain waves: these wa
 
 We should expect most of the difference to come from the alpha band [ as previous research has shown ], but just to be explicit, below are the generated PSD plots for various bands in the C3 Cz, and C4 channels
 
-![PSD of the Theta Band](../img/an-intro-to-bci/theta-band-psd.png)
-![PSD of the Alpha Band](../img/an-intro-to-bci/alpha-band-psd.png)
-![PSD of the Beta Band](../img/an-intro-to-bci/beta-band-psd.png)
+![PSD of the Theta Band](/img/bci/theta-band-psd.png)
+![PSD of the Alpha Band](/img/bci/alpha-band-psd.png)
+![PSD of the Beta Band](/img/bci/beta-band-psd.png)
 
 ## Common Spatial Pattern
 
@@ -89,7 +89,7 @@ This BCI method uses log-variance for it's variance measure, a fairly standard f
 
 Currently, our alpha band log-var looks as such:
 
-![Logvariance of the Alpha Band](../img/an-intro-to-bci/alpha-band-logvar.png)
+![Logvariance of the Alpha Band](/img/bci/alpha-band-logvar.png)
 
 As we can see, there are slight deviations, and potentially we can train an ml algorithm from here, but we could just be overfitting the data, some of these differences look negligible. To improve our features, lets take a step back and ask ourselves what these channels are.
 
@@ -101,19 +101,19 @@ The Common Spatial Pattern [ CSP ] algorithm is a widely praised algorithm that 
 
 The code for the CSP algorithm that I used here came from the Python EEG tools mentioned in the data section. The CSP algorithm provides a mixing matrix of size channels * channels. Once this mixing matrix is applied, the channels are in increasing order of varaince [ note here that since channels can have negative variance, when we compute the log-variance, we will get all positive numbers, meaning that the log-variances will go from high, to low, to high ]. Below is the log-variance plot for the alpha band after applying CSP.
 
-![Log-variance after applying CSP](../img/an-intro-to-bci/csp-logvar.png)
+![Log-variance after applying CSP](/img/bci/csp-logvar.png)
 
 As we can see, the first and final elements have an *incredibly* large variance between the 2 classes. This is really incredible, CSP has provided us a set of new channels, made as combinations of our standard 59 channels, and in these new channels, we have some that are incredibly discriminant of the left vs right hand motor imagery.
 
 Below are the PSD plots of the first, middle, and last features from the CSP matrix, we can see here that not only is there a significant difference in the classes, there are features in the data that are activated *more* for left and right hand movements.
 
-![PSD of the first, middle, and last feature of the CSP matrix](../img/an-intro-to-bci/csp-psd.png)
+![PSD of the first, middle, and last feature of the CSP matrix](/img/bci/csp-psd.png)
 
 Again, we should emphasize how **interpretable** these results are. Each CSP feature is vector of all of the standard 59 channels, if we only take the first and last CSP features, we have effectively found regions of scalp that have maximal discriminability. To visualize this, the topographic mappings of the first and last CSP features are below:
 
-![First Component](../img/an-intro-to-bci/csp-1.png)
+![First Component](/img/bci/csp-1.png)
 
-![Last Component](../img/an-intro-to-bci/csp-59.png)
+![Last Component](/img/bci/csp-59.png)
 
 *note: when I was generating these images, I thought something had gone horribly wrong, since these areas of the brain didn't line up with where the motor cortex was. I sifted through some of the lower variance features, and eventually found some that looked roughly in the area of the motor cortex, but by repeating this analysis across all of the subjects in the dataset, I found **these exact locations** as the first and last component every time. This probably means that there is a connection between these locations and motor imagery.*
 
@@ -127,13 +127,13 @@ LDA is a common method used in BCI. It scales as so: CSP will always provide the
 
 For the linear classifier, I used an 80:20 split of training and testing data. The scatterplot below shows the classifier with the training points.
 
-![Training Scatterplot](../img/an-intro-to-bci/train-scatterplot.png)
+![Training Scatterplot](/img/to-bci/train-scatterplot.png)
 
 The scatterplot with testing data and the confusion matrix are displayed below:
 
-![Testing Scatterplot](../img/an-intro-to-bci/test-scatterplot.png)
+![Testing Scatterplot](/img/bci/test-scatterplot.png)
 
-![Confusion Matrix](../img/an-intro-to-bci/confusion%20matrix.png)
+![Confusion Matrix](/img/bci/confusion%20matrix.png)
 
 **Accuracy: 92.5%**
 

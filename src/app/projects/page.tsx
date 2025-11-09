@@ -9,7 +9,7 @@ export default function Projects() {
         {projects.map((project) => (
           <div
             key={project.title}
-            className="p-6 bg-dark-900 rounded-lg hover:bg-dark-800 transition-all"
+            className="p-6 bg-dark-900 rounded-lg hover:bg-custom-light-bg-tertiary dark:hover:bg-custom-dark-bg-tertiary transition-all"
           >
             <div className="flex justify-between items-start">
               <h2 className="text-2xl font-semibold text-dark-50">{project.title}</h2>
