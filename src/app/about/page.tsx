@@ -194,7 +194,7 @@ export default function About() {
 
           <div className="p-6 bg-dark-900 rounded-lg">
 
-            <h3 className="text-2xl font-semibold text-custom-light-text-primary dark:text-custom-dark-text-primary">Software Engineer</h3>
+            <h3 className="text-2xl font-semibold text-custom-light-text-primary dark:text-custom-dark-text-primary">Software Engineering Intern</h3>
 
             <p className="text-dark-400 mt-1">Akomi AI • May 2025 - Aug 2025</p>
 
