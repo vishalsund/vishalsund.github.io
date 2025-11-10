@@ -13,6 +13,16 @@ export interface Project {
 export const projects: Project[] = [
 
   {
+    title: "pebble",
+    shortdesc:"A model context protocol server for a code documentation assistant, hosted on Cloudflare Workers",
+    description:
+      "This project deploys a Cloudflare Worker acting as a centralized set of Tool Functions for an external AI agent (like Anthropic's Claude). It handles core repository operations and context management, using Cloudflare KV for persistent state storage. The Worker follows a simple JSON-RPC style interface over HTTP, where the client sends a toolName and args in a POST request, and the Worker returns a JSON result.",
+    tags: ["Typescript", "Python", "Wrangler"],
+    github: "https://github.com/vishalsund/cf_ai_pebble-mcp-worker",
+    demo: "https://pebble.pebble-assistant.workers.dev/",
+    featured: true,
+  },
+  {
     title: "mini-torch",
     shortdesc:"A miniature deep learning framework built in C++, inspired by PyTorch. Optimized with custom cuda kernels.",
     description:
@@ -36,8 +46,6 @@ export const projects: Project[] = [
       "Built a web-based multiplayer rhythm game using Unity and C#, with custom art, assets, and music. Published using WebGL and hosted on GithubPages, presented to a state-leve Game Dev Conference. Used Krita to draw assets and Musescore to compose the OST, built a custom note-mapping framework.",
     tags: ["C#", "Unity", "WebGL", "Firebase"],
     github: "https://github.com/vishalsund/rhythm-quest",
-    demo:"https://vishalsund.github.io/rhythm-quest/",
-    featured: true,
   },
   {
     title: "SGAI Simulation",

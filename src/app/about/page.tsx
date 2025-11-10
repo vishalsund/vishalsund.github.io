@@ -113,6 +113,23 @@ export default function About() {
 
               <div className="project-header flex justify-between items-center mb-2">
 
+                <span className="project-title font-semibold text-lg">Distributed Systems for ML</span>
+
+                <span className="project-duration text-dark-200 text-sm">Sept 2025 - Present</span>
+
+              </div>
+
+              <p className="project-description ml-6 text-dark-200 leading-relaxed">
+
+                Exploring methods to train machine learning models across various, spatially separated and hetergenous nodes, with a focus on low communication distributed training. Expanding work from Google DeepMind's <a href = "https://arxiv.org/abs/2501.18512">Streaming DiLoCo</a> paper to explore heterogenous compute power of nodes to allow for better use of older GPUs.
+              </p>
+
+            </li>
+
+            <li className="project-item">
+
+              <div className="project-header flex justify-between items-center mb-2">
+
                 <span className="project-title font-semibold text-lg">LDOS Project</span>
 
                 <span className="project-duration text-dark-200 text-sm">Oct 2025 - Present</span>
@@ -121,7 +138,7 @@ export default function About() {
 
               <p className="project-description ml-6 text-dark-200 leading-relaxed">
 
-                This project focused on developing a <strong>Low-Drift Oscilloscope System (LDOS)</strong> for ultra-precise sensor readings in high-stability environments. Key responsibilities included firmware development for the data acquisition unit and implementing real-time signal processing algorithms to minimize temperature-induced drift. The system achieved a <strong>95% reduction</strong> in measurement variance compared to commercial alternatives.
+                Developing diffusion models to generate synthetic systems traces for training <a href = "https://ldos.utexas.edu/">Learning Directed Operating Systems</a> (LDOS Project). Improved training and inference efficiency of existing models by utilizing latent diffusion techniques. Working with PhD Donghyun Kim under program Director Aditya Akella on the Synthetic Data Generation research thrust
 
               </p>
 
@@ -134,32 +151,13 @@ export default function About() {
 
                 <span className="project-title font-semibold text-lg">Scientific Machine Learning (SciML)</span>
 
-                <span className="project-duration text-dark-200 text-sm">Oct 2025 - Present</span>
+                <span className="project-duration text-dark-200 text-sm">Sept 2025 - Present</span>
 
               </div>
 
               <p className="project-description ml-6 text-dark-200 leading-relaxed">
 
-                Explored the integration of neural networks with physical models (<strong>Physics-Informed Neural Networks - PINNs</strong>) to solve complex partial differential equations. Worked with high-dimensional datasets and optimized model architectures for computational efficiency on HPC clusters, contributing to faster simulation times for fluid dynamics problems.
-
-              </p>
-
-            </li>
-
-
-            <li className="project-item">
-
-              <div className="project-header flex justify-between items-center mb-2">
-
-                <span className="project-title font-semibold text-lg">Distributed Systems for ML</span>
-
-                <span className="project-duration text-dark-200 text-sm">Oct 2025 - Present</span>
-
-              </div>
-
-              <p className="project-description ml-6 text-dark-200 leading-relaxed">
-
-                Designed and implemented a scalable, fault-tolerant architecture for training large-scale machine learning models across a cluster of GPUs. Utilized frameworks like <strong>PyTorch Distributed</strong> and <strong>Ray</strong> for parallel data loading and gradient synchronization, successfully training a transformer model with over 10 billion parameters.
+                Working on the Data Assimilation problem with PhDs at the Oden Institute. Comparing various techniques for data assimilation of partial differential equations (PDEs). Some methods include Physics Informed Neural Networks (PINNs), Fourier Neural Operators (FNOs), and Diffusive models (including latent diffusion).
 
               </p>
 
@@ -172,13 +170,13 @@ export default function About() {
 
                 <span className="project-title font-semibold text-lg">Federated Learning</span>
 
-                <span className="project-duration text-dark-200 text-sm">Oct 2025 - Present</span>
+                <span className="project-duration text-dark-200 text-sm">Aug 2025 - Present</span>
 
               </div>
 
               <p className="project-description ml-6 text-dark-200 leading-relaxed">
 
-                Conducted research into privacy-preserving machine learning techniques, specifically focusing on <strong>Federated Averaging (FedAvg)</strong> optimization in non-IID data environments. Developed novel aggregation algorithms to mitigate client drift and improve model convergence rate while maintaining strict data localization requirements.
+                Individually working on implementing many of the ideas from Distributed Low Computing to the Federated Learning space to add a layers of privacy in the distributed training proccess.
 
               </p>
 
@@ -198,13 +196,14 @@ export default function About() {
 
             <h3 className="text-2xl font-semibold text-custom-light-text-primary dark:text-custom-dark-text-primary">Software Engineer</h3>
 
-            <p className="text-dark-400 mt-1">Akomi AI • May 2025 - July 2025</p>
+            <p className="text-dark-400 mt-1">Akomi AI • May 2025 - Aug 2025</p>
 
-            <p className="text-dark-200 mt-4">
+            <p className=" ml-6 text-dark-200 mt-4">
 
-              Developed and maintained microservices-based applications.
-
-              Implemented CI/CD pipelines and automated deployment processes.
+              • Collaborated with engineers on the development of AI Agents to automate prior-authorization for clinics
+            <br/>• Expanded the scope of a proprietary UI Automation software to integrate with Aetna claims system
+            <br/>• Integrated the client’s legacy EMR system to the existing Middleware Layer, primarily using Python
+            <br/>• Owned end-to-end feature implementation on the company website using ReactJS, HTML, and CS
 
             </p>
 
