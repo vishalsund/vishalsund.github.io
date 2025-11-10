@@ -46,6 +46,7 @@ export const projects: Project[] = [
       "Built a web-based multiplayer rhythm game using Unity and C#, with custom art, assets, and music. Published using WebGL and hosted on GithubPages, presented to a state-leve Game Dev Conference. Used Krita to draw assets and Musescore to compose the OST, built a custom note-mapping framework.",
     tags: ["C#", "Unity", "WebGL", "Firebase"],
     github: "https://github.com/vishalsund/rhythm-quest",
+    demo:"https://vishalsund.github.io/rhythm-quest/",
   },
   {
     title: "SGAI Simulation",
