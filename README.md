@@ -1,65 +1,43 @@
 # Vishal Sundaram's Portfolio and Blog
 
-This is my personal academic portfolio and blog website built with Next.js, TypeScript, and Tailwind CSS.
+Personal site built with Next.js, TypeScript, and Tailwind CSS. Static export for GitHub Pages.
 
-## 🚀 Features
+## Development
 
-- Next.js 14 with App Router
-- TypeScript for type safety
-- Tailwind CSS for styling
-- MDX for blog posts
-- Static site export for GitHub Pages
-- Responsive design
-- SEO optimized
-
-## 📁 Project Structure
-
-```
-.
-├── .github/            # GitHub Actions workflows
-├── components/         # React components
-├── content/           # MDX content
-│   ├── blog/         # Blog posts
-│   └── pages/        # Static pages
-├── src/              # Source code
-│   ├── app/         # Next.js app directory
-│   ├── components/  # React components
-│   └── styles/      # CSS styles
-├── public/           # Static assets
-└── types/            # TypeScript types
+```bash
+npm install
+npm run dev
 ```
 
-## 🛠️ Development
+Open [http://localhost:3000](http://localhost:3000).
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/vishalsund/vishalsund.github.io.git
-   ```
+## Adding a blog post
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+Drop a `.md` file in `content/blog/`. No MDX or React in posts—plain Markdown only.
 
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+**Filename (pick one style):**
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+- `my-post-slug.md` — slug becomes `my-post-slug`, URL `/blog/my-post-slug`
+- `2025-06-01-my-post-slug.md` — date is parsed from the filename; slug is still `my-post-slug`
 
-## 📝 Writing Content
-
-Blog posts are written in MDX and stored in the `content/blog` directory. Each post should include frontmatter with the following fields:
+**Frontmatter (all optional):**
 
 ```yaml
 ---
-title: 'Post Title'
-date: 'YYYY-MM-DD'
-description: 'Brief description'
+title: "Post title"
+date: 2025-06-01
+description: "One-line summary for the blog index"
 ---
 ```
 
-## 🚢 Deployment
+If you omit fields:
 
-The site is automatically deployed to GitHub Pages when changes are pushed to the main branch.
+- **title** — derived from the slug (e.g. `my-post-slug` → "my post slug")
+- **date** — from the `YYYY-MM-DD-` filename prefix, else frontmatter, else the file’s last-modified date at build time
+- **description** — first paragraph of the post
+
+Write the rest as normal Markdown (headings, links, images under `/public`, etc.). Run `npm run build` to publish.
+
+## Deployment
+
+Pushes to `main` deploy via GitHub Actions (see `.github/workflows/deploy.yml`).

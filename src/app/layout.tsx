@@ -1,16 +1,12 @@
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/lib/theme-provider'
+import { Footer } from '@/components/footer'
 import { ThemeToggle } from '@/components/theme-toggle'
-// Import the new Footer component (assuming you create it in components/footer.tsx)
-import { Footer } from '@/components/footer' 
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Vishal Sundaram',
-  description: 'Academic Portfolio and Blog',
+  description: 'Personal website and blog',
 }
 
 export default function RootLayout({
@@ -31,35 +27,25 @@ export default function RootLayout({
           `
         }} />
       </head>
-      <body className={`${inter.className} min-h-screen bg-custom-light-bg-primary dark:bg-custom-dark-bg-primary text-custom-light-text-primary dark:text-custom-dark-text-primary transition-all duration-200`}>
+      <body className="font-sans antialiased">
         <ThemeProvider>
-          {/* ... Your existing Nav code ... */}
-          <nav className="fixed top-0 left-0 right-0 z-50 border-b border-custom-light-border-primary dark:border-custom-dark-border-primary backdrop-blur-md bg-custom-light-bg-primary/80 dark:bg-custom-dark-bg-primary/80 supports-[backdrop-filter]:bg-custom-light-bg-primary/50 dark:supports-[backdrop-filter]:bg-custom-dark-bg-primary/50 transition-all duration-200">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-between h-16">
-                <div className="flex items-center">
-                  <a href="/" className="flex items-center text-xl font-semibold">
-                    <span className="bg-gradient-to-r from-custom-light-text-primary to-custom-light-text-secondary dark:from-custom-dark-text-primary dark:to-custom-dark-text-secondary bg-clip-text text-transparent transition-all duration-200">Vishal Sundaram</span>
-                  </a>
-                </div>
-                <div className="flex items-center space-x-8">
-                  <a href="/about" className="px-3 py-2 rounded-lg text-custom-light-text-tertiary hover:text-custom-light-text-primary dark:text-custom-dark-text-tertiary dark:hover:text-custom-dark-text-primary transition-all duration-200 hover:bg-custom-light-bg-tertiary dark:hover:bg-custom-dark-bg-tertiary">About</a>
-                  <a href="/blog" className="px-3 py-2 rounded-lg text-custom-light-text-tertiary hover:text-custom-light-text-primary dark:text-custom-dark-text-tertiary dark:hover:text-custom-dark-text-primary transition-all duration-200 hover:bg-custom-light-bg-tertiary dark:hover:bg-custom-dark-bg-tertiary">Blog</a>
-                  <a href="/projects" className="px-3 py-2 rounded-lg text-custom-light-text-tertiary hover:text-custom-light-text-primary dark:text-custom-dark-text-tertiary dark:hover:text-custom-dark-text-primary transition-all duration-200 hover:bg-custom-light-bg-tertiary dark:hover:bg-custom-dark-bg-tertiary">Projects</a>
-                  <ThemeToggle />
-                </div>
-              </div>
-            </div>
-          </nav>
-          
-          <div className="pt-16 flex flex-col min-h-[calc(100vh-64px)]"> {/* ADD 'flex flex-col min-h-[calc(100vh-64px)]' for sticky footer */}
-            <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow"> {/* ADD 'flex-grow' */}
+          <div className="min-h-screen flex flex-col max-w-2xl mx-auto px-6">
+            <header className="py-8 flex items-center justify-between">
+              <a href="/" className="text-sm font-medium">
+                Vishal Sundaram
+              </a>
+              <nav className="flex items-center gap-6 text-sm text-zinc-500 dark:text-zinc-400">
+                <a href="/blog" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Blog</a>
+                <a href="/about" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">About</a>
+                <ThemeToggle />
+              </nav>
+            </header>
+
+            <main className="flex-1 py-8">
               {children}
             </main>
-            
-            {/* ⬅️ FOOTER COMPONENT ADDED HERE */}
-            <Footer />
 
+            <Footer />
           </div>
         </ThemeProvider>
       </body>

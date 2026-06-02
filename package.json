@@ -3,25 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "clean": "rm -rf .next node_modules/.cache",
     "dev": "next dev",
+    "dev:clean": "npm run clean && next dev",
     "build": "next build",
     "start": "next start",
+    "preview": "npm run build && npx --yes serve@14 out -l 3000",
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.0.0",
-    "@mdx-js/react": "^3.0.0",
-    "@next/mdx": "^14.0.0",
     "date-fns": "^2.30.0",
     "gray-matter": "^4.0.3",
     "next": "^14.0.0",
-    "next-mdx-remote": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^5.5.0",
-    "rehype-autolink-headings": "^7.1.0",
-    "rehype-highlight": "^7.0.2",
-    "rehype-slug": "^6.0.0",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1"
