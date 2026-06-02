@@ -65,7 +65,7 @@ PSD takes the square of the truncated Fourier transform of the signal and divide
 
 In our context, "*power*" is analagous to neural activity [ or technically any electric activity ], giving us the density of neural activity at different frequencies from every channel. Below are the PSDs for the C3 Cz and C4 channels.
 
-![Power Spectral Density of the EEG Data](../img/bci/full-band-psd.png)
+![Power Spectral Density of the EEG Data](/img/bci/full-band-psd.png)
 
 ## Bandpass Filtering
 
@@ -127,7 +127,7 @@ LDA is a common method used in BCI. It scales as so: CSP will always provide the
 
 For the linear classifier, I used an 80:20 split of training and testing data. The scatterplot below shows the classifier with the training points.
 
-![Training Scatterplot](/img/to-bci/train-scatterplot.png)
+![Training Scatterplot](/img/bci/train-scatterplot.png)
 
 The scatterplot with testing data and the confusion matrix are displayed below:
 
