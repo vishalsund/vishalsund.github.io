@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <div className="space-y-8">
       <section>
-        <h1 className="text-2xl font-semibold tracking-tight">Vishal Sundaram</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Vishal Sundaram</h1>
         <p className="mt-2 text-zinc-500 dark:text-zinc-400 leading-relaxed">
           turing scholar, cs + math @ ut austin. interested in math, chemistry and deep learning.
           contact me at:{' '}
