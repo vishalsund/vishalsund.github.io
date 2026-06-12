@@ -1,3 +1,5 @@
+import { WriteLink } from '@/components/write-link'
+
 export default function Home() {
   return (
     <div className="space-y-8">
@@ -32,6 +34,8 @@ export default function Home() {
           <a href="https://github.com/vishalsund" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">github</a>
           <span className="mx-2">/</span>
           <a href="https://www.linkedin.com/in/vishal-sund/" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">linkedin</a>
+          <span className="mx-2">/</span>
+          <WriteLink />
         </p>
       </section>
     </div>
